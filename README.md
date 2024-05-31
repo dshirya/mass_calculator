@@ -1,5 +1,5 @@
 # mass_calculator
-Universal tool for calculating the mass of each element from a known substance formula
+
 
 **Overview**
 This project is a Python script that calculates the masses of elements in chemical formulas. It supports multiple input methods and batch processing, outputting results to an Excel file. The script can handle input from direct user entry, pasted text, .txt files, and .xlsx files.
