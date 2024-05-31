@@ -36,7 +36,7 @@ Choose a file by its number.
 The script will process the formulas from the file and generate an Excel file with the results.
 
 ### **Output adjustment**
-By default as an output for the options 2-4 it calculates the masses for the mixtures of 0.1, 0.15, 0.2, 0.25, 0.3, 0,4, 0,5g
+By default as an output for the options 2-4 it calculates the masses for the mixtures of 0.1g, 0.15g, 0.2g, 0.25g, 0.3g, 0,4g, 0,5g
 
 If you want to change it you can do so in the `unil/batch_processing.py` by changing the numbers in the 7th string:
 ```
