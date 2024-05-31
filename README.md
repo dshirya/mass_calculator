@@ -1,15 +1,25 @@
-# mass_calculator
+# Mass calculator
 
 
-**Overview**
-This project is a Python script that calculates the masses of elements in chemical formulas. It supports multiple input methods and batch processing, outputting results to an Excel file. The script can handle input from direct user entry, pasted text, .txt files, and .xlsx files.
+## **Overview**
+This project is a Python script that calculates the masses of elements in chemical formulas. For example, you want to calculate how much of each element you need to take to synthesize a compound with a known ratio of substances.
+```
+We have to make 0.2g of GdOsIn
+So this script will calculate how much of each element you should take:
 
-**Usage**
+Element masses:
+Gd: 0.0680 g
+Os: 0.0823 g
+In: 0.0497 g
+Total mass: 0.2 g
+```
+It supports multiple input methods and batch processing, outputting results to an Excel file. The script can handle input from direct user entry, pasted text, .txt files, and .xlsx files.
 
-**Running the Script**
-Run the main.py script.
+## **Usage**
 
-**Input Methods**
+**Running the Script** : run the `main.py` script.
+
+### **Input Methods**
 1. Enter the chemical formula
 You will be prompted to enter a chemical formula and the total mass of the mixture.
 The script will calculate and display the masses of each element.
@@ -25,7 +35,15 @@ The script will list all .xlsx files in the current directory.
 Choose a file by its number.
 The script will process the formulas from the file and generate an Excel file with the results.
 
-**After Processing**
+### **Output adjustment**
+By default as an output for the options 2-4 it calculates the masses for the mixtures of 0.1, 0.15, 0.2, 0.25, 0.3, 0,4, 0,5g
+If you want to change it you can do so in the 'unil/batch_processing.py' by changing the numbers in the 7th string:
+```
+def process_formulas(formulas, filename, total_masses=[0.10, 0.15, 0.20, 0.25, 0.30, 0.40, 0.50]):  # change total mass here if needed
+```
+
+
+### **After Processing**
 After processing, you will be asked if you want to finish the calculation. Type 'Y' to finish or 'N' to return to the input method selection menu.
 
 
