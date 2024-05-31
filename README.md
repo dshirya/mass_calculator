@@ -37,6 +37,7 @@ The script will process the formulas from the file and generate an Excel file wi
 
 ### **Output adjustment**
 By default as an output for the options 2-4 it calculates the masses for the mixtures of 0.1, 0.15, 0.2, 0.25, 0.3, 0,4, 0,5g
+
 If you want to change it you can do so in the 'unil/batch_processing.py' by changing the numbers in the 7th string:
 ```
 def process_formulas(formulas, filename, total_masses=[0.10, 0.15, 0.20, 0.25, 0.30, 0.40, 0.50]):  # change total mass here if needed
