@@ -8,7 +8,8 @@ def list_files_by_extension(extension, exclude=[]):
     return [f for f in os.listdir(current_directory) if f.endswith(extension) and f not in exclude]
 
 def finish_calculation():
-    return click.confirm("Do you want to finish the calculation?", default=True)
+    bold_text = "\033[1mDo you want to finish?\033[0m"
+    return click.confirm(bold_text, default=True)
 
 @click.command()
 @click.option('--filename', default='Periodic Table of Elements.csv', help='CSV file containing element molar masses.')
@@ -19,6 +20,7 @@ def main(filename):
         click.echo("2. Paste column of text with formulas")
         click.echo("3. Read from txt file with formulas")
         click.echo("4. Read from Excel file with formulas")
+        click.echo("5. Calculate masses based on the known mass of one element")
 
         choice = click.prompt("Enter your choice", type=int)
 
@@ -129,10 +131,46 @@ def main(filename):
             if valid_formulas:
                 bp.process_formulas(valid_formulas, filename)
 
+        
+        elif choice == 5:
+            while True:  # Outer loop to allow changing the element
+                known_element = click.prompt("Enter the element with known mass (e.g., Os)", type=str)
+                
+                while True:  # Inner loop to allow changing the formula or mass
+                    formula = click.prompt("Enter the chemical formula of the mixture (e.g., GdOsIn)", type=str)
+                    known_mass = click.prompt(f"Enter the known mass of {known_element} in grams", type=float)
+    
+                    try:
+                        ratios = formula_parser.get_parsed_formula(formula)
+                        wrong_elements = [element for element in ratios if element not in molar_masses]
+    
+                        if wrong_elements:
+                            click.echo(f"The formula you entered is wrong. Wrong elements: {', '.join(wrong_elements)}")
+                        elif known_element not in ratios:
+                            click.echo(f"The element '{known_element}' is not present in the formula.")
+                        else:
+                            masses = mass_calculator.calculate_masses_with_known_element(
+                                ratios, known_element, known_mass, molar_masses
+                            )
+                            click.echo("Element masses:")
+                            for element, mass in masses.items():
+                                click.echo(f"{element}: {mass:.4f} g")
+                            
+                    except Exception as e:
+                        click.echo(f"An error occurred: {e}")
+    
+                    # Ask if the user wants to change the formula/mass or continue with a new element
+                    if click.confirm("Do you want to change the element or finish?", default=True):
+                        break  # Exit inner loop to change element
+                        
+                # Ask if the user wants to continue with a new element or finish the entire calculation
+                if click.confirm("Finish?", default=True):
+                    break  # Exit outer loop to finish the process
+
         else:
             click.echo("Invalid choice. Please restart the program and choose a valid option.")
-            continue
-
+            continue 
+        
         if finish_calculation():
             break
 
